@@ -100,7 +100,7 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         }
         
     function HomeSection(){
-         echo '<p>LooK Some books</p>';
+        
         echo '<div style="padding-center:20px">';
         
        
