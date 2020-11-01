@@ -82,8 +82,8 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
     }
     function displayLogo(){
         echo'<div class="header">';
-        echo'<a href="#default" class="logo"><img src="'.FOLDER_LOGO.'"></a>';
-        echo'<h1><span class="highlight">MY BOOK</span> SHOP</h1>';
+        echo'<img src="'.FOLDER_LOGO.'" ></a>';
+        echo'<h1 ><span class="highlight">MY BOOK</span> SHOP</h1>';
     }
     function displayCopyright(){
         echo'<br><br><div id="copyright"><h3>&copy; DWIPKUMAR  '.date("Y").'</h3></div>';
