@@ -1,7 +1,7 @@
 <?php
 include 'PHP/PHPFUNCTIONS.php';
 
-createPageHeader("Book");
+createPageHeader("Book","");
 
 //---------- Variables -----------------------------------
 $productError = "";
@@ -21,6 +21,8 @@ $priceInput = "";
 $queInput = "";
 $purchasesData=array();
 $fieldInput = 0;
+
+
 define('CHAR_SIZE', 10);
 
 //---------- Data Validation -----------------------------				
@@ -98,6 +100,9 @@ if (isset($_POST['submit'])) {
     } else {
         $purchasesData["quc"] = ((int)$_POST["quc"]);
     }
+    
+
+        
     if ($productError == "" && $fnameError == "" && $lnameError == "" && $cityError == "" && $commentError == "" && $priceError == "" && $queInput == "") {
       
         
@@ -113,9 +118,9 @@ if (isset($_POST['submit'])) {
 //            }
 //        }
         $jsonfile = json_encode($purchasesData,true);
-        
+        define("FILE_EOL", "\r\n");
         $file = fopen("purchases.txt", "a");
-        fwrite($file, $jsonfile);
+        fwrite($file,','.FILE_EOL. $jsonfile);
         fclose($file);
       
         header('Location:buying.php');
@@ -123,50 +128,60 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>    
+<div align="center">
 <form action="buying.php" method="POST">	
+<br>
+<table>
+    <tr>
+        <td>Product no: </td>
+    <td><input type="text" name='inputproduct' value="<?php echo $productInput; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $productError; ?> </font></strong></td>
+    </tr>
 
-    Product no: 
-    <input type="text" name='inputproduct' value="<?php echo $productInput; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $productError; ?>
-        </font></strong>
-    <br /><br />
+    <tr>
+    <td>First name :</td>
+    <td><input type='text' name='inputfname' value="<?php echo $fnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $fnameError; ?></font></strong></td>
+    </tr>
 
+    <tr>
+    <td>Last name :</td>
+    <td><input type='text' name='inputlname' value="<?php echo $lnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $lnameError; ?></font></strong></td>
+    </tr>
 
-    First name :
-    <input type='text' name='inputfname' value="<?php echo $fnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $fnameError; ?></font></strong>
-    <br /><br />
+    <tr>
+    <td>City :</td>
+    <td><input type='text' name='city' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong></td>
+   </tr>
 
-    Last name :
-    <input type='text' name='inputlname' value="<?php echo $lnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $lnameError; ?></font></strong>
-    <br /><br />
+    <tr>
+   <td> Comment :</td>
+    <td><input type='text' name='comment' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong></td>
+   </tr>
 
-    City :
-    <input type='text' name='city' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong>
-    <br /><br />
+    <tr>
+    <td>Price :</td>
+    <td><input type='number' name='price' id='price' size="12" style="font-size:13pt;font-weight:bold;"> </td>
+   <td> <strong><font color=#CC0000>*<?php echo $priceError; ?></font></strong></td>
+    </tr>
 
-    Comment :
-    <input type='text' name='comment' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong>
-    <br /><br />
+    <tr>
+   <td> Quantity :</td>
+    <td><input type='number' name='quc' id="quc" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $qucError; ?></font></strong></td>
+   </tr>
 
-
-    Price :
-    <input type='number' name='price' id='price' size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $priceError; ?></font></strong>
-    <br /><br />
-
-    Quantity :
-    <input type='number' name='quc' id="quc" size="12" style="font-size:13pt;font-weight:bold;"> 
-    <strong><font color=#CC0000>*<?php echo $qucError; ?></font></strong>
-    <br /><br />
-
-
-    <input  type="submit" name="submit" value='Submit' style="font-size:16pt;font-weight:bold;float:center; color:black;" > 						
-</form> 
-
+<tr>
+<td><input  type="submit" name="submit" value='Submit' style="font-size:16pt;font-weight:bold;float:center; color:black;" > </td>	
+<td> </td>
+<td><input  type="reset" name="Reset" value='Reset' style="font-size:16pt;font-weight:bold;float:center; color:black;" > </td>
+</tr>					
+</table>
+    </form> 
+</div>
 <?php
 createPageFooter();
 ?>

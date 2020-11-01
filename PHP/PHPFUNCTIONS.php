@@ -20,7 +20,7 @@ define('PAGE_ORDER', 'order.php');
 define('FILE_CSS', 'css/style.css');
 $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOLDER_BOOK5,FOLDER_BOOK6);
 
-    function createPageHeader($Title){
+    function createPageHeader($Title, $bodyChange){
         
         ?><html>
             <head>
@@ -28,7 +28,7 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
                 <title><?php echo $Title; ?></title>
                 <link rel="stylesheet" href="<?php echo FILE_CSS?>"   >
             </head>
-            <body>
+            <body class="<?php echo $bodyChange;?>">
                 <?php
                 displayLogo();
                 displayNavigationMenu();
@@ -69,10 +69,17 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         </a>
         <div class="des">Book 5</div>
       </div>
+      <div class="gallery">
+        <a target="_blank" href="<?php echo FOLDER_BOOK6 ?>">
+          <img src="<?php echo FOLDER_BOOK6 ?>" alt="Northern Lights" width="600" height="400">
+        </a>
+        <div class="des">Book 5</div>
+      </div>
 <?php
     }
     function createPageFooter(){
        ?>
+                
                 <div class="footer">
                     <?php displayCopyright()?>
                 </div>
@@ -86,7 +93,7 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         echo'<h1 ><span class="highlight">MY BOOK</span> SHOP</h1>';
     }
     function displayCopyright(){
-        echo'<br><br><div id="copyright"><h3>&copy; DWIPKUMAR  '.date("Y").'</h3></div>';
+        echo'<br><br><div id="copyright"><h3>&copy; DWIPKUMAR  (2014100) '.date("Y").'</h3></div>';
     }
     function displayNavigationMenu(){
                         
