@@ -6,6 +6,9 @@
     shuffle($advertisingBook);
     echo '<br><br><img class="advertising" src="'.$advertisingBook[0].'">';
     HomeSection();
+    
+    
+    
     createPageFooter();
     
    ?>

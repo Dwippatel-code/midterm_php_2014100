@@ -1,1 +1,2 @@
-"[\"p21211\",\"dwip\",\"dwip\",\"montreal\",\"montreal\",0]"
+[{"inputproduct":"p21211","inputfname":"dwip","inputlname":"patel","city":"montreal","comment":"qwert","price":12,"quc":4},
+{"inputproduct":"p21211","inputfname":"dwip","inputlname":"patel","city":"montreal","comment":"qwert","price":66,"quc":4}]

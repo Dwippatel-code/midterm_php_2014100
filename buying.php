@@ -25,6 +25,7 @@ define('CHAR_SIZE', 10);
 
 //---------- Data Validation -----------------------------				
 if (isset($_POST['submit'])) {
+    
 
     if ((strlen(htmlspecialchars($_POST["inputproduct"])) > CHAR_SIZE + 2)) {
         $CodeError = "<br>The product code contains more than 10 ";
@@ -40,8 +41,10 @@ if (isset($_POST['submit'])) {
         $productInput = "";
         $productInput = null;
     } else {
-        $productInput = ($_POST["inputproduct"]);
+        $purchasesData["inputproduct"] = ($_POST["inputproduct"]);
     }
+    
+    
     if (strlen(htmlspecialchars($_POST["inputfname"])) > CHAR_SIZE + 10) {
         $fnameError = "<br>The first name contains more than 20 ";
         $fnameInput = null;
@@ -49,21 +52,26 @@ if (isset($_POST['submit'])) {
     } else if (strlen(htmlspecialchars($_POST["inputfname"])) == 0) {
         $fnameError = "<br>The first name cannot be empty ";
     } else {
-        $fnameInput = ($_POST["inputfname"]);
+        $purchasesData["inputfname"] = ($_POST["inputfname"]);
     }
-    if (strlen(htmlspecialchars($_POST["inputfname"])) > CHAR_SIZE + 10) {
+    
+    
+    if (strlen(htmlspecialchars($_POST["inputlname"])) > CHAR_SIZE + 10) {
         $lnameError = "<br>The last name contains more than 20 ";
-    } else if (strlen(htmlspecialchars($_POST["inputfname"])) == 0) {
+    } else if (strlen(htmlspecialchars($_POST["inputlname"])) == 0) {
         $lnameError = "<br>The last name cannot be empty ";
     } else {
-        $lnameInput = ($_POST["inputfname"]);
+        $purchasesData["inputlname"] = ($_POST["inputlname"]);
     }
+    
+    
     if (strlen(htmlspecialchars($_POST["city"])) > CHAR_SIZE - 2) {
         $cityError = "<br>The city contains more than 8 characters ";
     } else if (strlen(htmlspecialchars($_POST["city"])) == 0) {
         $cityError = "<br>The city cannot be empty ";
     } else {
-        $cityInput = ($_POST["city"]);
+        $purchasesData["city"]  = ($_POST["city"]);
+         
     }
 
     if (strlen(htmlspecialchars($_POST["comment"])) > CHAR_SIZE * 20) {
@@ -71,39 +79,51 @@ if (isset($_POST['submit'])) {
     } else if (strlen(htmlspecialchars($_POST["comment"])) == 0) {
         $commentsError = "<br>The comments cannot be empty ";
     } else {
-        $commentInput = ($_POST["comment"]);
+        $purchasesData["comment"] = ($_POST["comment"]);
     }
-    if (((int)$_POST["price"] > 0) && ((int)$_POST["price"] <= 10000)) {
+    
+    if (($_POST["price"] < 0) && ($_POST["price"] >= 10000)) {
+        
         $priceError = "<br>The product price cannot be more than 10000 and cannot be less than 0 ";
     } else if (strlen(htmlspecialchars((int)$_POST["price"])) == 0) {
         $priceError = "<br>The product price cannot be empty ";
     } else {
-        $priceInput = ((int)$_POST["price"]);
+       
+        $purchasesData["price"] = ((int)$_POST["price"]);
     }
-    if (((int)$_POST["quc"] > 0) && ((int)$_POST["quc"] < 10000)) {
+    if (((int)$_POST["quc"] < 0) && ((int)$_POST["quc"] > 10000)) {
         $qucError = "<br>The product quantity cannot be more than 10000 and cannot be less than 0 ";
     } else if (strlen(htmlspecialchars((int)$_POST["quc"])) == 0) {
         $qucError = "<br>The product quantity cannot be empty ";
     } else {
-        $queInput = ((int)$_POST["quc"]);
+        $purchasesData["quc"] = ((int)$_POST["quc"]);
     }
     if ($productError == "" && $fnameError == "" && $lnameError == "" && $cityError == "" && $commentError == "" && $priceError == "" && $queInput == "") {
-        header('Location:buying.php');
-        $purchasesData = Array($productInput, $fnameInput, $lnameInput, $cityInput, $commentInput, $queInput);
+      
+        
+//        $purchasesData["productId"] = $productInput;
+//        $purchasesData["fName"] = $fnameInput;
+//        $purchasesData["lName"] = $lnameInput;
+//        $purchasesData["city"] = $_POST["city"];
+//        $purchasesData["comment"] = $commentInput;
+//        $purchasesData["queInput"] = $queInput;
 //        for ($index = 0; $index < count($sendData); $index++) {
 //            if (!(is_null($sendData[$index]))) {
 //                array_push($sendData[$index]);
 //            }
 //        }
-        $jsonfile = json_encode($purchasesData);
+        $jsonfile = json_encode($purchasesData,true);
+        
         $file = fopen("purchases.txt", "a");
-        fwrite($file, json_encode($jsonfile, true));
+        fwrite($file, $jsonfile);
         fclose($file);
+      
+        header('Location:buying.php');
         exit();
     }
 }
 ?>    
-<form action="buying.php"  align="  " method="POST">	
+<form action="buying.php" method="POST">	
 
     Product no: 
     <input type="text" name='inputproduct' value="<?php echo $productInput; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> 
@@ -134,12 +154,12 @@ if (isset($_POST['submit'])) {
 
 
     Price :
-    <input type='number' name='price' value="<?php echo $priceInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
+    <input type='number' name='price' id='price' size="12" style="font-size:13pt;font-weight:bold;"> 
     <strong><font color=#CC0000>*<?php echo $priceError; ?></font></strong>
     <br /><br />
 
     Quantity :
-    <input type='number' name='quc' value="<?php echo $queInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> 
+    <input type='number' name='quc' id="quc" size="12" style="font-size:13pt;font-weight:bold;"> 
     <strong><font color=#CC0000>*<?php echo $qucError; ?></font></strong>
     <br /><br />
 
