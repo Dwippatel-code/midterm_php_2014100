@@ -1,0 +1,82 @@
+cheet sheet 
+
+
+use lot of comment
+======
+#End time where loading of page stops
+$endTime =  new DateTime('now');
+          
+#diff to find out interval
+ $interval = $startTime->diff($endTime);
+           
+echo $interval->format("It took %s %F seconds to load the page");
+=========
+
+//Associative array
+$names = array("Microsoft" => "Bill Gates", "Apple" => "Steve Jobs", "Community" => "Linus Torvalds")
+ foreach($names as $key => $values)
+ {
+    echo "<br>".$key. " " .$values;
+ }
+            
+ $result = sort($names);
+ foreach($names as $key => $values)
+ {
+  echo "<br>".$key. " " .$values;
+  }
+            
+  $result = rsort($names);
+  foreach($names as $key => $values)
+  {
+     echo "<br>".$key. " " .$values;
+ }
+------------
+
+ $networkProtocol = substr($URL, 0, $separatorPosition);
+        
+ echo "<br>The network protocol is : ".$networkProtocol;
+-------------
+
+$jsonfile = json_encode($Data,true);
+define("FILE_EOL", "\r\n");
+$file = fopen(".txt", "a");
+fwrite($file,','.FILE_EOL. $jsonfile);
+fclose($file);
+
+========
+subversion
+1. control a subverson repository (a database in a folder)
+
+sub vesion - path
+
+2. in netbeans , click team -> subversion -checkout
+
+file://dwip/teacher /Subversion _repository_2014100
+
+php project 
+
+then commit the project and enter the revision message
+
+----------
+XML : schema
+<?xml version="1.0" encoding="utf-8">
+<customers>
+	<customer>
+		<firstname>linus<?firstname>
+	</customer>
+<customers>
+==========
+XHTML
+'Content-Type: text/html; charset=UTF-8'
+'Content-Type: application /xhtml+xml; charset=UTF-8'
+
+cookie
+-----------
+ternary operator
+( condition  ? true   :false   )
+
+if(2>1)
+	echo"grater"
+else
+	echo"not greater"
+echo(2>1 ? "greater":"not greater");

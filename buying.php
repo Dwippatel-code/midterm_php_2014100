@@ -3,7 +3,7 @@ include 'PHP/PHPFUNCTIONS.php';
 
 createPageHeader("Book","");
 
-//---------- Variables -----------------------------------
+//Variables error
 $productError = "";
 $fnameError = "";
 $lnameError = "";
@@ -11,7 +11,7 @@ $cityError = "";
 $commentError = "";
 $priceError = "";
 $qucError = "";
-
+//Variables Input
 $productInput = "";
 $fnameInput = "";
 $lnameInput = "";
@@ -19,13 +19,13 @@ $cityInput = "";
 $commentInput = "";
 $priceInput = "";
 $queInput = "";
+//array 
 $purchasesData=array();
 $fieldInput = 0;
-
-
+//char size 
 define('CHAR_SIZE', 10);
 
-//---------- Data Validation -----------------------------				
+//condition  Validation 			
 if (isset($_POST['submit'])) {
     
 
@@ -72,8 +72,7 @@ if (isset($_POST['submit'])) {
     } else if (strlen(htmlspecialchars($_POST["city"])) == 0) {
         $cityError = "<br>The city cannot be empty ";
     } else {
-        $purchasesData["city"]  = ($_POST["city"]);
-         
+        $purchasesData["city"]  = ($_POST["city"]);  
     }
 
     if (strlen(htmlspecialchars($_POST["comment"])) > CHAR_SIZE * 20) {
@@ -90,9 +89,9 @@ if (isset($_POST['submit'])) {
     } else if (strlen(htmlspecialchars((int)$_POST["price"])) == 0) {
         $priceError = "<br>The product price cannot be empty ";
     } else {
-       
-        $purchasesData["price"] = ((int)$_POST["price"]);
+     $purchasesData["price"] = ((int)$_POST["price"]);
     }
+    
     if (((int)$_POST["quc"] < 0) && ((int)$_POST["quc"] > 10000)) {
         $qucError = "<br>The product quantity cannot be more than 10000 and cannot be less than 0 ";
     } else if (strlen(htmlspecialchars((int)$_POST["quc"])) == 0) {
@@ -102,7 +101,7 @@ if (isset($_POST['submit'])) {
     }
     
 
-        
+  //jason file to store data in the txt file 
     if ($productError == "" && $fnameError == "" && $lnameError == "" && $cityError == "" && $commentError == "" && $priceError == "" && $queInput == "") {
       
         
@@ -117,13 +116,13 @@ if (isset($_POST['submit'])) {
 //                array_push($sendData[$index]);
 //            }
 //        }
-        $jsonfile = json_encode($purchasesData,true);
+        $jsonfile = json_encode($purchasesData,true);//json encode
         define("FILE_EOL", "\r\n");
-        $file = fopen("purchases.txt", "a");
-        fwrite($file,','.FILE_EOL. $jsonfile);
-        fclose($file);
-      
+        $file = fopen("Data\purchases.txt", "a");//declare txt file
+        fwrite($file,','.FILE_EOL. $jsonfile);//write 
+        fclose($file);//close
         header('Location:buying.php');
+      
         exit();
     }
 }
@@ -132,6 +131,7 @@ if (isset($_POST['submit'])) {
 <form action="buying.php" method="POST">	
 <br>
 <table>
+<!--    from-->
     <tr>
         <td>Product no: </td>
     <td><input type="text" name='inputproduct' value="<?php echo $productInput; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> </td>
@@ -174,11 +174,14 @@ if (isset($_POST['submit'])) {
     <td><strong><font color=#CC0000>*<?php echo $qucError; ?></font></strong></td>
    </tr>
 
+   
+
 <tr>
 <td><input  type="submit" name="submit" value='Submit' style="font-size:16pt;font-weight:bold;float:center; color:black;" > </td>	
 <td> </td>
 <td><input  type="reset" name="Reset" value='Reset' style="font-size:16pt;font-weight:bold;float:center; color:black;" > </td>
-</tr>					
+</tr>		
+  <a href="cheat_sheet.txt" download>Download File cheat sheet</a>
 </table>
     </form> 
 </div>

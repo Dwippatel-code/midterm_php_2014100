@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+//declare the folder for the images and pages 
 define('FOLDER_IMAGES', 'images/');
 define('FOLDER_LOGO', FOLDER_IMAGES."logo.jpg");
 define('FOLDER_BOOK1', FOLDER_IMAGES."h1.jpg");
@@ -17,9 +17,12 @@ define('FOLDER_BOOK6', FOLDER_IMAGES."f3.jpg");
 define('PAGE_INDEX', 'index.php');
 define('PAGE_BUYING', 'buying.php');
 define('PAGE_ORDER', 'order.php');
-define('FILE_CSS', 'css/style.css');
+define('FILE_CSS', 'css/style.css');//css 
+//advertising  image and it will change every time when it is refresh
 $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOLDER_BOOK5,FOLDER_BOOK6);
 
+//function header for the header for all pages
+//and it help for change the color for the web page  while using  [?commmand=print]
     function createPageHeader($Title, $bodyChange){
         
         ?><html>
@@ -34,8 +37,10 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
                 displayNavigationMenu();
                 
     }
+    //function gallery to show photo in web pages 
     function gallery(){
        ?> 
+<!--      list for the image to show in gallery-->
         <div class="gallery">
         <a target="_blank" href="<?php echo FOLDER_BOOK1 ?>">
           <img src="<?php echo FOLDER_BOOK1 ?>" alt="Cinque Terre" width="600" height="400">
@@ -73,10 +78,11 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         <a target="_blank" href="<?php echo FOLDER_BOOK6 ?>">
           <img src="<?php echo FOLDER_BOOK6 ?>" alt="Northern Lights" width="600" height="400">
         </a>
-        <div class="des">Book 5</div>
+        <div class="des">Book 6</div>
       </div>
 <?php
     }
+    //function for set footer in webpages
     function createPageFooter(){
        ?>
                 
@@ -87,14 +93,20 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         </html>
         <?php
     }
+    
+    //function for logo 
     function displayLogo(){
         echo'<div class="header">';
         echo'<img src="'.FOLDER_LOGO.'" ></a>';
         echo'<h1 ><span class="highlight">MY BOOK</span> SHOP</h1>';
     }
+    
+    //function for copyright text
     function displayCopyright(){
         echo'<br><br><div id="copyright"><h3>&copy; DWIPKUMAR  (2014100) '.date("Y").'</h3></div>';
     }
+    
+    //function for display navigation bar
     function displayNavigationMenu(){
                         
 
@@ -105,7 +117,7 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         echo '</div>';
         echo '</div>';
         }
-        
+    //function for text in web-page
     function HomeSection(){
         
         echo '<div style="padding-center:20px">';
