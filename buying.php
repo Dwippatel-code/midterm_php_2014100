@@ -11,14 +11,7 @@ $cityError = "";
 $commentError = "";
 $priceError = "";
 $qucError = "";
-//Variables Input
-$productInput = "";
-$fnameInput = "";
-$lnameInput = "";
-$cityInput = "";
-$commentInput = "";
-$priceInput = "";
-$queInput = "";
+
 //array 
 $purchasesData=array();
 $fieldInput = 0;
@@ -28,7 +21,7 @@ define('CHAR_SIZE', 10);
 //condition  Validation 			
 if (isset($_POST['submit'])) {
     
-
+/*
     if ((strlen(htmlspecialchars($_POST["inputproduct"])) > CHAR_SIZE + 2)) {
         $CodeError = "<br>The product code contains more than 10 ";
         $productInput = "";
@@ -46,35 +39,17 @@ if (isset($_POST['submit'])) {
         $purchasesData["inputproduct"] = ($_POST["inputproduct"]);
     }
     
+  */  
+    $fnameError = customer::setFirstname(htmlspecialchars($_POST["fname"]));
     
-    if (strlen(htmlspecialchars($_POST["inputfname"])) > CHAR_SIZE + 10) {
-        $fnameError = "<br>The first name contains more than 20 ";
-        $fnameInput = null;
-        $fnameInput = null;
-    } else if (strlen(htmlspecialchars($_POST["inputfname"])) == 0) {
-        $fnameError = "<br>The first name cannot be empty ";
-    } else {
-        $purchasesData["inputfname"] = ($_POST["inputfname"]);
-    }
-    
-    
-    if (strlen(htmlspecialchars($_POST["inputlname"])) > CHAR_SIZE + 10) {
-        $lnameError = "<br>The last name contains more than 20 ";
-    } else if (strlen(htmlspecialchars($_POST["inputlname"])) == 0) {
-        $lnameError = "<br>The last name cannot be empty ";
-    } else {
-        $purchasesData["inputlname"] = ($_POST["inputlname"]);
-    }
-    
-    
-    if (strlen(htmlspecialchars($_POST["city"])) > CHAR_SIZE - 2) {
-        $cityError = "<br>The city contains more than 8 characters ";
-    } else if (strlen(htmlspecialchars($_POST["city"])) == 0) {
-        $cityError = "<br>The city cannot be empty ";
-    } else {
-        $purchasesData["city"]  = ($_POST["city"]);  
-    }
-
+    $lnameError= customer::setLastname(htmlspecialchars($_POST["lname"]));
+    $passwordError= customer::setPassword(htmlspecialchars($_POST["password"]));
+ 
+    $cityError= customer::setCity(htmlspecialchars($_POST["city"]));
+    $addressError = customer::setAddress(htmlspecialchars($_POST["address"]));
+    $provinceError= customer::setprovince (htmlspecialchars($_POST["province"]));
+    $postalCodeError = customer::setPostalcode(htmlspecialchars($_POST["postalcode"]));
+/*
     if (strlen(htmlspecialchars($_POST["comment"])) > CHAR_SIZE * 20) {
         $commentsError = "<br>The comments contains more than 200 ";
     } else if (strlen(htmlspecialchars($_POST["comment"])) == 0) {
@@ -99,29 +74,12 @@ if (isset($_POST['submit'])) {
     } else {
         $purchasesData["quc"] = ((int)$_POST["quc"]);
     }
-    
+    */
 
   //jason file to store data in the txt file 
-    if ($productError == "" && $fnameError == "" && $lnameError == "" && $cityError == "" && $commentError == "" && $priceError == "" && $queInput == "") {
+    if ($productError == "" && $fnameError == " " && $lnameError == "" && $cityError == "" && $commentError == "" && $priceError == "" && $queInput == "") {
       
         
-//        $purchasesData["productId"] = $productInput;
-//        $purchasesData["fName"] = $fnameInput;
-//        $purchasesData["lName"] = $lnameInput;
-//        $purchasesData["city"] = $_POST["city"];
-//        $purchasesData["comment"] = $commentInput;
-//        $purchasesData["queInput"] = $queInput;
-//        for ($index = 0; $index < count($sendData); $index++) {
-//            if (!(is_null($sendData[$index]))) {
-//                array_push($sendData[$index]);
-//            }
-//        }
-        $jsonfile = json_encode($purchasesData,true);//json encode
-        define("FILE_EOL", "\r\n");
-        $file = fopen("Data\purchases.txt", "a");//declare txt file
-        fwrite($file,','.FILE_EOL. $jsonfile);//write 
-        fclose($file);//close
-        header('Location:buying.php');
       
         exit();
     }
@@ -132,47 +90,53 @@ if (isset($_POST['submit'])) {
 <br>
 <table>
 <!--    from-->
-    <tr>
-        <td>Product no: </td>
-    <td><input type="text" name='inputproduct' value="<?php echo $productInput; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> </td>
-    <td><strong><font color=#CC0000>*<?php echo $productError; ?> </font></strong></td>
-    </tr>
+    
 
     <tr>
     <td>First name :</td>
-    <td><input type='text' name='inputfname' value="<?php echo $fnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><input type='text' name='fname' value="<?php echo $_POST["fname"]; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
     <td><strong><font color=#CC0000>*<?php echo $fnameError; ?></font></strong></td>
     </tr>
 
     <tr>
     <td>Last name :</td>
-    <td><input type='text' name='inputlname' value="<?php echo $lnameInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><input type='text' name='lname' value="<?php echo $_POST["lname"]; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
     <td><strong><font color=#CC0000>*<?php echo $lnameError; ?></font></strong></td>
     </tr>
 
     <tr>
-    <td>City :</td>
-    <td><input type='text' name='city' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
-    <td><strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong></td>
-   </tr>
-
-    <tr>
-   <td> Comment :</td>
-    <td><input type='text' name='comment' value="<?php echo $cityInput; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
-    <td><strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong></td>
-   </tr>
-
-    <tr>
-    <td>Price :</td>
-    <td><input type='number' name='price' id='price' size="12" style="font-size:13pt;font-weight:bold;"> </td>
-   <td> <strong><font color=#CC0000>*<?php echo $priceError; ?></font></strong></td>
+        <td>Address : </td>
+    <td><input type="text" name='address' value="<?php echo $_POST["address"]; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $productError; ?> </font></strong></td>
     </tr>
-
+    
     <tr>
-   <td> Quantity :</td>
-    <td><input type='number' name='quc' id="quc" size="12" style="font-size:13pt;font-weight:bold;"> </td>
-    <td><strong><font color=#CC0000>*<?php echo $qucError; ?></font></strong></td>
+    <td>City :</td>
+    <td><input type='text' name='city' value="<?php echo $_POST["city"]; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $cityError; ?></font></strong></td>
    </tr>
+
+   <tr>
+        <td>Postal code : </td>
+    <td><input type="text" name='postalcode' value="<?php echo $_POST["Postalcode"]; ?>"  size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $productError; ?> </font></strong></td>
+    </tr>
+   
+    <tr>
+   <td> Username :</td>
+    <td><input type='text' name='username' value="<?php echo $_POST["username"]; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $usernameError; ?></font></strong></td>
+   </tr>
+
+   
+   <tr>
+   <td> Password :</td>
+    <td><input type='password' name='password' value="<?php echo $_POST["password"]; ?>" size="12" style="font-size:13pt;font-weight:bold;"> </td>
+    <td><strong><font color=#CC0000>*<?php echo $passwordError; ?></font></strong></td>
+   </tr>
+    
+
+  
 
    
 
