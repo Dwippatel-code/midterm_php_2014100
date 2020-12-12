@@ -15,8 +15,9 @@ define('FOLDER_BOOK4', FOLDER_IMAGES."f1.jpg");
 define('FOLDER_BOOK5', FOLDER_IMAGES."f2.jpg");
 define('FOLDER_BOOK6', FOLDER_IMAGES."f3.jpg");
 define('PAGE_INDEX', 'index.php');
-define('PAGE_BUYING', 'buying.php');
+define('PAGE_BUYING', 'buy.php');
 define('PAGE_ORDER', 'order.php');
+define('PAGE_REGISTER', 'register.php');
 define('FILE_CSS', 'css/style.css');//css 
 //advertising  image and it will change every time when it is refresh
 $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOLDER_BOOK5,FOLDER_BOOK6);
@@ -24,7 +25,10 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
 //function header for the header for all pages
 //and it help for change the color for the web page  while using  [?commmand=print]
     function createPageHeader($Title, $bodyChange){
-        
+       // if ($_SERVER["HTTPS"] != "on") {
+       // header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+       // exit();
+   // }
         ?><html>
             <head>
              <meta charset="UTF-8">
@@ -113,6 +117,7 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         echo '<div class="header-right">';
         echo '&nbsp;<a href="'.PAGE_INDEX.'">HOME</a>';
         echo '&nbsp;<a href="'.PAGE_BUYING.'">BUYING</a>';
+        echo '&nbsp;<a href="'.PAGE_REGISTER.'">REGISTER</a>';
         echo '&nbsp;<a href="'.PAGE_ORDER.'">ORDER</a>';
         echo '</div>';
         echo '</div>';
@@ -126,5 +131,33 @@ $advertisingBook = array(FOLDER_BOOK1,FOLDER_BOOK2,FOLDER_BOOK3,FOLDER_BOOK4,FOL
         echo '<p></p>';
         echo '</div>';
     }
-    
-    
+    function get_Password($username,$password){
+        global $connection ;
+        try{
+            $sqlQuery = "CALL customer_select(:p_username);";
+            $pdostatement =$connection->prepare($sqlQuery);
+            $pdostatement-> bindParam(':p_username',$username );
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+            $PDOStatement->execute();
+             $row = $PDOStatement->fetch();
+             if ($row != null) {
+             $recPassword = $row["password"];
+              $customer_uuid = $row["customer_uuid"];
+//            echo '**-'.$recPassword.'**- Entered-** ' . $passwordHash;
+//            if (password_verify($recPassword, $passwordHash)) {
+            echo 'welcome';
+            sessionStart($customer_uuid);
+            return $customer_uuid;
+//            }
+        }
+            
+        } catch (PDOException $E) {
+             echo $E->getMessage();
+        }
+    }
+    function logOut() {
+    unset($_SESSION);
+    session_destroy();
+    header("Location: index.php");
+    }

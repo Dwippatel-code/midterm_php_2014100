@@ -1,4 +1,5 @@
 <?php
+include 'objects/products.php';
 class purchase{   
     
     private $username = "";
@@ -42,35 +43,35 @@ class purchase{
         return $this->comment;
     }
 
-    function setUsername($username): void {
+    function setUsername($username){
         $this->username = $username;
     }
 
-    function setProductCode($productCode): void {
+    function setProductCode($productCode) {
         $this->productCode = $productCode;
     }
 
-    function setQuantity($quantity): void {
+    function setQuantity($quantity){
         $this->quantity = $quantity;
     }
 
-    function setPrice($price): void {
+    function setPrice($price){
         $this->price = $price;
     }
 
-    function setSubtotal($subtotal): void {
+    function setSubtotal($subtotal){
         $this->subtotal = $subtotal;
     }
 
-    function setTaxes($taxes): void {
+    function setTaxes($taxes){
         $this->taxes = $taxes;
     }
 
-    function setGrandtotal($grandtotal): void {
+    function setGrandtotal($grandtotal){
         $this->grandtotal = $grandtotal;
     }
 
-    function setComment($comment): void {
+    function setComment($comment){
         $this->comment = $comment;
     }
 
